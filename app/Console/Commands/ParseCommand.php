@@ -12,7 +12,7 @@ class ParseCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'parse';
+    protected $signature = 'parse {service?}';
 
     /**
      * The console command description.
@@ -26,16 +26,19 @@ class ParseCommand extends Command
      *
      * @return int
      */
-    public function handle(JmartParserService $parseService)
+    public function handle()
     {
-//        $bar = $this->output->createProgressBar();
-//        $bar->start();
 
-//        $bar->finish();
-
-//        $this->info(' Shop was successfully parsed!');
-
-        var_dump($parseService->parseUrl());
+        switch ($this->argument('service')){
+            case 'jmart':
+                $service = new JmartParserService();
+                $data = $service->parseUrl();
+                var_dump($data);
+                break;
+            default:
+                echo 'nothing to parse';
+                break;
+        }
 
     }
 }
