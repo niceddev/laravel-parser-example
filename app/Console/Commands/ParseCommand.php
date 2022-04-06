@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\ParseService;
+use App\Services\JmartParserService;
 use Illuminate\Console\Command;
 
 class ParseCommand extends Command
@@ -26,7 +26,7 @@ class ParseCommand extends Command
      *
      * @return int
      */
-    public function handle(ParseService $parseService)
+    public function handle(JmartParserService $parseService)
     {
 //        $bar = $this->output->createProgressBar();
 //        $bar->start();

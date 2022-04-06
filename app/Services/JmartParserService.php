@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use App\Contracts\ParserInterface;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Http;
 
-class ParseService
+class JmartParserService implements ParserInterface
 {
     private string $url = 'https://jmart.kz/gw/catalog/v1/products?category_id=2879';
 
@@ -20,4 +21,8 @@ class ParseService
         }
     }
 
+    public function store()
+    {
+
+    }
 }
