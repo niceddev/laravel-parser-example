@@ -33,7 +33,7 @@ class ParseCommand extends Command
             case 'jmart':
                 $service = new JmartParserService();
                 $data = $service->parseUrl();
-                var_dump($data);
+                print_r($data);
                 break;
             default:
                 echo 'nothing to parse';
