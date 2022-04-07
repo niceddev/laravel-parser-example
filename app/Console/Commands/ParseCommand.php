@@ -29,16 +29,9 @@ class ParseCommand extends Command
     public function handle()
     {
 
-        switch ($this->argument('service')){
-            case 'jmart':
-                $service = new JmartParserService();
-                $data = $service->parseUrl();
-                print_r($data);
-                break;
-            default:
-                echo 'nothing to parse';
-                break;
-        }
+        $service = new JmartParserService();
+        $data = $service->parseUrl();
+        $service->addProduct($data);
 
     }
 }
