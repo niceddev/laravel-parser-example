@@ -9,22 +9,29 @@ use Illuminate\Support\Facades\Http;
 
 class JmartParserService implements ParserInterface
 {
-    protected $url;
+    private string $url;
+    private array $headers;
 
     public function __construct()
     {
         $this->url = 'https://jmart.kz/gw/catalog/v1/products?category_id=2879';
+        $this->headers = [
+            'Content-Type' => 'application/json',
+            'Accept'       => 'application/json',
+        ];
     }
 
     public function parseUrl()
     {
-        $request = Http::withoutVerifying()->get($this->url);
+        $request = Http::withoutVerifying()
+            ->withHeaders($this->headers)
+            ->get($this->url);
 
-        $response = $request?->body();
+        $response = $request?->object()->data->products;
         $status = $request ? $request->status() : 500;
 
         if ($response && $status === 200){
-            return $response;
+            return collect($response);
         }
 
         return null;

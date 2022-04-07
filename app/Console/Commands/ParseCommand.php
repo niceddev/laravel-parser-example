@@ -28,10 +28,14 @@ class ParseCommand extends Command
      */
     public function handle()
     {
-
         $service = new JmartParserService();
-        $data = $service->parseUrl();
-        $service->addProduct($data);
 
+        $data = $service->parseUrl();
+//        $service->addProduct($data);
+//        foreach ($data as $el){
+//            echo $el;
+//        };
+
+        var_dump($data->where('product_id', 101217)->pluck('product'));
     }
 }
