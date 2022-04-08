@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Product;
 use App\Services\JmartParserService;
 use App\Services\TechnodomParserService;
 use Illuminate\Console\Command;
@@ -9,7 +10,7 @@ use Illuminate\Container\Container;
 
 class ParseCommand extends Command
 {
-    protected $signature = 'parse {service?}';
+    protected $signature = 'parse {service}';
     protected $description = "Parse products";
 
     private Container $container;
@@ -29,7 +30,6 @@ class ParseCommand extends Command
     public function handle()
     {
         $service = $this->container->make($this->services[$this->argument('service')]);
-
         $dataset = $service->parseUrl();
 
         dd($dataset);
