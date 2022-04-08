@@ -3,34 +3,36 @@
 namespace App\Console\Commands;
 
 use App\Services\JmartParserService;
+use App\Services\TechnodomParserService;
 use Illuminate\Console\Command;
+use Illuminate\Container\Container;
 
 class ParseCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'parse {service?}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = "Parse products";
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
+    private Container $container;
+    private $services;
+
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+        $this->services = [
+            'jmart' => JmartParserService::class,
+            'technodom' => TechnodomParserService::class,
+//            '' => ::class,
+        ];
+        parent::__construct();
+    }
+
     public function handle()
     {
-        $service = new JmartParserService();
+        $service = $this->container->make($this->services[$this->argument('service')]);
+
         $dataset = $service->parseUrl();
-        echo gettype($dataset);
+
+        dd($dataset);
 
 //        foreach ($dataset as $data){
 //            echo gettype($data);
