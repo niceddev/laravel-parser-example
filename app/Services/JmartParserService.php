@@ -27,21 +27,20 @@ class JmartParserService implements ParserInterface
             ->withHeaders($this->headers)
             ->get($this->url);
 
-        $response = $request?->collect();
+        $response = $request?->object();
         $status = $request ? $request->status() : 500;
 
         if ($response && $status === 200){
-            return $response;
+            return $response->data;
         }
 
         return null;
     }
 
-    public function addProduct(Product $product)
+    public function addProduct($product)
     {
         try {
-//            Product::create([])
-            dd($product->product);
+            dd(gettype($product));
 //            Product::create([
 //                'name' => $product->name;
 //            ]);

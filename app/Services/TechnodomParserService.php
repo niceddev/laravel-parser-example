@@ -27,7 +27,7 @@ class TechnodomParserService implements ParserInterface
             ->withHeaders($this->headers)
             ->get($this->url);
 
-        $response = $request?->collect();
+        $response = $request?->object();
         $status = $request ? $request->status() : 500;
 
         if ($response && $status === 200){
@@ -37,11 +37,10 @@ class TechnodomParserService implements ParserInterface
         return null;
     }
 
-    public function addProduct(Product $product)
+    public function addProduct($product)
     {
         try {
-//            Product::create([])
-            dd($product->product);
+            dd($product->recommends[0]->name);
 //            Product::create([
 //                'name' => $product->name;
 //            ]);

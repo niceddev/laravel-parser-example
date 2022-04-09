@@ -33,12 +33,7 @@ class ParseCommand extends Command
             $service = $this->container->make($this->services[$this->argument('service') ?? 'jmart']);
             $dataset = $service->parseUrl();
 
-            dd($dataset);
-
-//            foreach ($dataset as $data){
-//                echo gettype($data);
-//                $service->addProduct($data);
-//            }
+            $service->addProduct($dataset);
         }else{
             echo 'this service has no parser yet';
         }
