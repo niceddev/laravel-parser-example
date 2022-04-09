@@ -14,7 +14,7 @@ class TechnodomParserService implements ParserInterface
 
     public function __construct()
     {
-        $this->url = 'https://api.r46.technodom.kz/recommend/928f0061e9b548f96d16917390ab6732?shop_id=74fd3b613553b97107bc4502752749&did=oSEbjvmWCU&seance=2VhiJ3zPEE&segment=B&locations=10&extended=1&referer=https%3A%2F%2Fwww.technodom.kz%2F';
+        $this->url = 'https://api.r46.technodom.kz/recommend/928f0061e9b548f96d16917390ab6732?shop_id=74fd3b613553b97107bc4502752749&extended=1';
         $this->headers = [
             'Content-Type' => 'application/json',
             'Accept'       => 'application/json',

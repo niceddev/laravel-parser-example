@@ -29,14 +29,19 @@ class ParseCommand extends Command
 
     public function handle()
     {
-        $service = $this->container->make($this->services[$this->argument('service')]);
-        $dataset = $service->parseUrl();
+        if (isset($this->services[$this->argument('service')])) {
+            $service = $this->container->make($this->services[$this->argument('service') ?? 'jmart']);
+            $dataset = $service->parseUrl();
 
-        dd($dataset);
+            dd($dataset);
 
-//        foreach ($dataset as $data){
-//            echo gettype($data);
-//            $service->addProduct($data);
-//        }
+//            foreach ($dataset as $data){
+//                echo gettype($data);
+//                $service->addProduct($data);
+//            }
+        }else{
+            echo 'this service has no parser yet';
+        }
+
     }
 }
