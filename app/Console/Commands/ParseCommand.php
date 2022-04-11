@@ -30,7 +30,7 @@ class ParseCommand extends Command
     public function handle()
     {
         if (isset($this->services[$this->argument('service')])) {
-            $service = $this->container->make($this->services[$this->argument('service') ?? 'jmart']);
+            $service = $this->container->make($this->services[$this->argument('service')]);
             $dataset = $service->parseUrl();
 
             $service->addProduct($dataset);
