@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -15,12 +13,18 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $category = Category::updateOrCreate([
-            'name' => 'Ноутбуки и компьюетры',
-            'parent_id' => null,
-            'alias' => 'laptops_computers',
-        ]);
-        $category->insert([
+        \DB::table('categories')->insert([
+            [
+                'name' => 'Ноутбуки и компьюетры',
+                'parent_id' => null,
+                'alias' => 'laptops_computers',
+            ],
+            [
+                'name' => 'Смартфоны и гаджеты',
+                'parent_id' => null,
+                'alias' => 'phones_gadgets',
+            ],
+
             [
                 'name' => 'Ноутбуки',
                 'parent_id' => 1,
@@ -28,35 +32,27 @@ class CategorySeeder extends Seeder
             ],
             [
                 'name' => 'Настольные компьютеры',
-                'parent_id' => 2,
+                'parent_id' => 1,
                 'alias' => 'computers',
             ],
             [
                 'name' => 'Комплектующие',
-                'parent_id' => 3,
+                'parent_id' => 1,
                 'alias' => 'laptop_pc_accessories',
-            ]
-        ]);
-
-        $category->updateOrCreate([
-            'name' => 'Смартфоны и гаджеты',
-            'parent_id' => null,
-            'alias' => 'phones_gadgets',
-        ]);
-        $category->insert([
+            ],
             [
                 'name' => 'Смартфоны/телефоны',
-                'parent_id' => 4,
+                'parent_id' => 2,
                 'alias' => 'smartphones',
             ],
             [
                 'name' => 'Гаджеты',
-                'parent_id' => 5,
+                'parent_id' => 2,
                 'alias' => 'gadgets',
             ],
             [
                 'name' => 'Аксессуары для телефонов',
-                'parent_id' => 6,
+                'parent_id' => 2,
                 'alias' => 'phone_accessories',
             ]
         ]);
