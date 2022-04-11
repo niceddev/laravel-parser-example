@@ -40,7 +40,7 @@ class JmartParserService implements ParserInterface
     public function addProduct($product)
     {
         try {
-            dd(gettype($product));
+            dd($product->products[0]->product);
 //            Product::create([
 //                'name' => $product->name;
 //            ]);
