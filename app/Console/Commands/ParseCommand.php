@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Product;
 use App\Services\JmartParserService;
 use App\Services\TechnodomParserService;
+use App\Services\ShopKZParserService;
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;
 
@@ -18,22 +18,21 @@ class ParseCommand extends Command
 
     public function __construct(Container $container)
     {
+        parent::__construct();
         $this->container = $container;
         $this->services = [
             'jmart' => JmartParserService::class,
             'technodom' => TechnodomParserService::class,
-//            '' => ::class,
+            'shopkz' => ShopKZParserService::class
         ];
-        parent::__construct();
     }
 
     public function handle()
     {
         if (isset($this->services[$this->argument('service')])) {
-            $service = $this->container->make($this->services[$this->argument('service')]);
-            $dataset = $service->parseUrl();
-
-            $service->addProduct($dataset);
+            $this->container
+                ->make($this->services[$this->argument('service')])
+                ->parseUrl();
         }else{
             echo 'this service has no parser yet';
         }

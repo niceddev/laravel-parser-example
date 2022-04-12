@@ -7,7 +7,7 @@ use App\Models\Product;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Http;
 
-class AnotherParserService2 implements ParserInterface
+class ShopKZParserService implements ParserInterface
 {
     private string $url = '';
 

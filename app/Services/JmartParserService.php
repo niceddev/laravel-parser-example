@@ -3,8 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\ParserInterface;
-use App\Models\Product;
-use GuzzleHttp\Exception\RequestException;
+use App\Enums\JmartCategory;
 use Illuminate\Support\Facades\Http;
 
 class JmartParserService implements ParserInterface
@@ -14,7 +13,8 @@ class JmartParserService implements ParserInterface
 
     public function __construct()
     {
-        $this->url = 'https://jmart.kz/gw/catalog/v1/products?category_id=2879';
+//        $this->url = 'https://jmart.kz/gw/catalog/v1/products?category_id='.JmartCategory::LAPTOPS;
+        $this->url = 'https://jmart.kz/gw/catalog/v1/products?category_id=597';
         $this->headers = [
             'Content-Type' => 'application/json',
             'Accept'       => 'application/json',
@@ -26,25 +26,24 @@ class JmartParserService implements ParserInterface
         $request = Http::withoutVerifying()
             ->withHeaders($this->headers)
             ->get($this->url);
+//                'category_id' => JmartCategory::LAPTOPS,
+//                'page' => 1
+//            ]);
 
         $response = $request?->object();
         $status = $request ? $request->status() : 500;
 
         if ($response && $status === 200){
-            return $response->data;
+            $this->addProduct($response->data);
         }
 
         return null;
     }
 
-    public function addProduct($product)
+    public function addProduct($data)
     {
         try {
-            dd($product->products[0]->product);
-//            Product::create([
-//                'name' => $product->name;
-//            ]);
-
+            dd($data->products[0]->product);
         } catch (RequestException $exception) {
             return $exception;
         }
