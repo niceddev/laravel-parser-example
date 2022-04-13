@@ -7,5 +7,5 @@ use App\Models\Product;
 interface ParserInterface
 {
     public function parseUrl();
-    public function addProduct(Product $product);
+    public function addProduct(mixed $data);
 }
