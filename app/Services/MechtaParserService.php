@@ -20,7 +20,9 @@ class MechtaParserService extends ParserService
         $category = Category::whereAlias(Str::lower($categoryEnum->name))->firstOrFail();
 
         if ($response && $status === 200) {
+            // че за хуйня
             $totalPage = (int) ceil($response->data->all_items_count / $response->data->page_items_count);
+            // эА?
             $ids = [];
             foreach ($response->data->items as $item){
                 $ids[] = $item->id;
@@ -31,11 +33,11 @@ class MechtaParserService extends ParserService
                 ->post('https://www.mechta.kz/api/new/mindbox/actions/catalog', [
                 'product_ids' => $ids
             ]);
-            $priceResponce = $priceRequest?->object();
+            $priceResponse = $priceRequest?->object();
 
             foreach ($response->data->items as $data) {
                 $id = $data->id;
-                $discountedPrice = $priceResponce->data->$id->prices->discounted_price;
+                $discountedPrice = $priceResponse->data->$id->prices->discounted_price;
 
                 $parseProduct = new ParseProduct(
                     $data->title,
