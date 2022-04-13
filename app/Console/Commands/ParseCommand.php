@@ -21,9 +21,9 @@ class ParseCommand extends Command
         parent::__construct();
         $this->container = $container;
         $this->services = [
-            'jmart' => JmartParserService::class,
+            'jmart'     => JmartParserService::class,
             'technodom' => TechnodomParserService::class,
-            'shopkz' => ShopKZParserService::class
+            'shopkz'    => ShopKZParserService::class
         ];
     }
 
@@ -33,9 +33,8 @@ class ParseCommand extends Command
             $this->container
                 ->make($this->services[$this->argument('service')])
                 ->parseUrl();
-        }else{
+        } else {
             echo 'this service has no parser yet';
         }
-
     }
 }

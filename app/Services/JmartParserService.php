@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\ParserInterface;
+use App\Entities\ParseProduct;
 use App\Enums\JmartCategory;
 use App\Models\Category;
 use App\Models\Product;
@@ -35,24 +36,19 @@ class JmartParserService implements ParserInterface
             $status = $request ? $request->status() : 500;
 
             if ($response && $status === 200) {
-                $this->addProduct($response->data, $categoryEnum->name);
+                foreach ($response->data->products as $data) {
+                    $category = Category::whereAlias(Str::lower($categoryEnum->name))->firstOrFail();
+                    $parseProduct = new ParseProduct($data->product, $data->base_price, $data->image_url,
+                        $category->id);
+
+                    $this->addProduct($parseProduct);
+                }
             }
         }
     }
 
-    public function addProduct($dataset, string $alias)
+    public function addProduct(ParseProduct $parseProduct): Product
     {
-        $category = Category::whereAlias(Str::lower($alias))->firstOrFail();
-
-        $data = $dataset->products;
-
-        foreach ($data as $product) {
-            Product::create([
-                'name'        => $product->product,
-                'price'       => $product->base_price,
-                'image_url'   => $product->image_url,
-                'category_id' => $category->id
-            ]);
-        }
+        return Product::create($parseProduct->toArray());
     }
 }
