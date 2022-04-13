@@ -2,9 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\JmartCategory;
+use App\Enums\MechtaCategory;
+use App\Enums\TechnodomCategory;
 use App\Services\JmartParserService;
 use App\Services\TechnodomParserService;
-use App\Services\ShopKZParserService;
+use App\Services\MechtaParserService;
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;
 
@@ -15,6 +18,7 @@ class ParseCommand extends Command
 
     private Container $container;
     private $services;
+    private $categories;
 
     public function __construct(Container $container)
     {
@@ -23,16 +27,23 @@ class ParseCommand extends Command
         $this->services = [
             'jmart'     => JmartParserService::class,
             'technodom' => TechnodomParserService::class,
-            'shopkz'    => ShopKZParserService::class
+            'mechta'    => MechtaParserService::class
+        ];
+        $this->categories = [
+            'jmart'     => JmartCategory::cases(),
+            'technodom' => TechnodomCategory::cases(),
+            'mechta'    => MechtaCategory::cases()
         ];
     }
 
     public function handle()
     {
-        if (isset($this->services[$this->argument('service')])) {
+        $argument = $this->argument('service');
+
+        if (isset($this->services[$argument])) {
             $this->container
-                ->make($this->services[$this->argument('service')])
-                ->parseUrl();
+                ->make($this->services[$argument])
+                ->parseUrl($this->categories[$argument]);
         } else {
             echo 'this service has no parser yet';
         }

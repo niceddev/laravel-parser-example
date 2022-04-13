@@ -6,7 +6,7 @@ use App\Entities\ParseProduct;
 
 interface ParserInterface
 {
-    public function parseUrl();
+    public function parseUrl(array $categories);
 
     public function parsePages($categoryEnum, int $page = 1);
 

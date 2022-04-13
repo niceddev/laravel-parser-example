@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Entities\ParseProduct;
-use App\Enums\TechnodomCategory;
 use App\Models\Category;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
@@ -11,23 +10,6 @@ use Illuminate\Support\Str;
 
 class TechnodomParserService extends ParserService
 {
-    private array $headers;
-
-    public function __construct()
-    {
-        $this->headers = [
-            'Content-Type' => 'application/json',
-            'Accept'       => 'application/json',
-        ];
-    }
-
-    public function parseUrl()
-    {
-        foreach (TechnodomCategory::cases() as $categoryEnum) {
-            $this->parsePages($categoryEnum);
-        }
-    }
-
     public function parsePages($categoryEnum, int $page = 1)
     {
         $request = Http::withoutVerifying()
