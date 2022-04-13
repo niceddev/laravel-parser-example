@@ -46,13 +46,14 @@ class TechnodomParserService extends ParserService
                     $data->title,
                     $data->price,
                     sprintf('https://api.technodom.kz/f3/api/v1/images/800/800/%s', Arr::first($data->images)),
-                    $category->id);
+                    $category->id
+                );
 
                 $this->addProduct($parseProduct);
+            }
 
-                if ($totalPage >= $page) {
-                    $this->parsePages($categoryEnum, $page + 1);
-                }
+            if ($totalPage > $page) {
+                $this->parsePages($categoryEnum, $page + 1);
             }
         }
     }

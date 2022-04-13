@@ -49,10 +49,10 @@ class JmartParserService extends ParserService
                 );
 
                 $this->addProduct($parseProduct);
+            }
 
-                if ($totalPage >= $page) {
-                    $this->parsePages($categoryEnum, $page + 1);
-                }
+            if ($totalPage > $page) {
+                $this->parsePages($categoryEnum, $page + 1);
             }
         }
     }
