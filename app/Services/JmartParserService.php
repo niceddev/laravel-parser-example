@@ -14,7 +14,7 @@ class JmartParserService implements ParserInterface
 
     public function __construct()
     {
-        $this->url = 'https://jmart.kz/gw/catalog/v1/products?category_id=597';
+        $this->url = 'https://jmart.kz/gw/catalog/v1/products';
         $this->headers = [
             'Content-Type' => 'application/json',
             'Accept'       => 'application/json',
@@ -28,7 +28,6 @@ class JmartParserService implements ParserInterface
                 ->withHeaders($this->headers)
                 ->get($this->url, [
                     'category_id' => $categoryId->value,
-//                'page' => 1
                 ]);
             $response = $request?->object();
             $status = $request ? $request->status() : 500;
@@ -41,15 +40,16 @@ class JmartParserService implements ParserInterface
 
     public function addProduct($dataset)
     {
-        $data = $dataset->products[0];
-        $product = array($data->product, $data->price, $data->image_url);
+        $data = $dataset->products;
+//        $product = array($data->product, $data->price, $data->image_url);
 
-//        dd($product);
-        Product::create([
-            'name' => $data->product,
-            'price' => $data->price,
-            'image_url' => $data->image_url,
-            'category_id' => 1
-        ]);
+        foreach($data as $product){
+            Product::create([
+                'name' => $product->product,
+                'price' => $product->base_price,
+                'image_url' => $product->image_url,
+                'category_id' => 1
+            ]);
+        }
     }
 }
