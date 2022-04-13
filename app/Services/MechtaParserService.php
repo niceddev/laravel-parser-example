@@ -21,11 +21,25 @@ class MechtaParserService extends ParserService
 
         if ($response && $status === 200) {
             $totalPage = (int) ceil($response->data->all_items_count / $response->data->page_items_count);
+            $ids = [];
+            foreach ($response->data->items as $item){
+                $ids[] = $item->id;
+            }
+            $ids = implode(',', $ids);
+
+            $priceRequest = Http::withoutVerifying()
+                ->post('https://www.mechta.kz/api/new/mindbox/actions/catalog', [
+                'product_ids' => $ids
+            ]);
+            $priceResponce = $priceRequest?->object();
 
             foreach ($response->data->items as $data) {
+                $id = $data->id;
+                $discountedPrice = $priceResponce->data->$id->prices->discounted_price;
+
                 $parseProduct = new ParseProduct(
                     $data->title,
-                    $data->price,
+                    $discountedPrice,
                     $data->photos[0],
                     $category->id
                 );
