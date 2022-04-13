@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 
 class TechnodomParserService extends ParserService
 {
-    private string $url;
     private array $headers;
 
     public function __construct()
@@ -25,25 +24,34 @@ class TechnodomParserService extends ParserService
     public function parseUrl()
     {
         foreach (TechnodomCategory::cases() as $categoryEnum) {
-            $this->url = $categoryEnum->value;
+            $this->parsePages($categoryEnum);
+        }
+    }
 
-            $request = Http::withoutVerifying()
-                ->withHeaders($this->headers)
-                ->get($this->url);
+    public function parsePages($categoryEnum, int $page = 1)
+    {
+        $request = Http::withoutVerifying()
+            ->withHeaders($this->headers)
+            ->get(sprintf('%s&page=%s', $categoryEnum->value, $page));
 
-            $response = $request?->object();
-            $status = $request ? $request->status() : 500;
-            $category = Category::whereAlias(Str::lower($categoryEnum->name))->firstOrFail();
+        $response = $request?->object();
+        $status = $request ? $request->status() : 500;
+        $category = Category::whereAlias(Str::lower($categoryEnum->name))->firstOrFail();
 
-            if ($response && $status === 200) {
-                foreach ($response->payload as $data) {
-                    $parseProduct = new ParseProduct(
-                        $data->title,
-                        $data->price,
-                        sprintf('https://api.technodom.kz/f3/api/v1/images/800/800/%s', Arr::first($data->images)),
-                        $category->id);
+        if ($response && $status === 200) {
+            $totalPage = (int) ceil($response->total / $response->limit);
 
-                    $this->addProduct($parseProduct);
+            foreach ($response->payload as $data) {
+                $parseProduct = new ParseProduct(
+                    $data->title,
+                    $data->price,
+                    sprintf('https://api.technodom.kz/f3/api/v1/images/800/800/%s', Arr::first($data->images)),
+                    $category->id);
+
+                $this->addProduct($parseProduct);
+
+                if ($totalPage >= $page) {
+                    $this->parsePages($categoryEnum, $page + 1);
                 }
             }
         }
