@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-Enum JmartCategory : int
+enum JmartCategory: int
 {
     case LAPTOPS = 597;
     case COMPUTERS = 462;

@@ -2,19 +2,20 @@
 
 namespace App\Services;
 
-use App\Contracts\ParserInterface;
-use App\Models\Product;
-use GuzzleHttp\Exception\RequestException;
+use App\Entities\ParseProduct;
+use App\Enums\TechnodomCategory;
+use App\Models\Category;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
-class TechnodomParserService implements ParserInterface
+class TechnodomParserService extends ParserService
 {
     private string $url;
     private array $headers;
 
     public function __construct()
     {
-        $this->url = 'https://api.r46.technodom.kz/recommend/928f0061e9b548f96d16917390ab6732?shop_id=74fd3b613553b97107bc4502752749&extended=1';
         $this->headers = [
             'Content-Type' => 'application/json',
             'Accept'       => 'application/json',
@@ -23,30 +24,28 @@ class TechnodomParserService implements ParserInterface
 
     public function parseUrl()
     {
-        $request = Http::withoutVerifying()
-            ->withHeaders($this->headers)
-            ->get($this->url);
+        foreach (TechnodomCategory::cases() as $categoryEnum) {
+            $this->url = $categoryEnum->value;
 
-        $response = $request?->object();
-        $status = $request ? $request->status() : 500;
+            $request = Http::withoutVerifying()
+                ->withHeaders($this->headers)
+                ->get($this->url);
 
-        if ($response && $status === 200){
-            return $response;
-        }
+            $response = $request?->object();
+            $status = $request ? $request->status() : 500;
+            $category = Category::whereAlias(Str::lower($categoryEnum->name))->firstOrFail();
 
-        return null;
-    }
+            if ($response && $status === 200) {
+                foreach ($response->payload as $data) {
+                    $parseProduct = new ParseProduct(
+                        $data->title,
+                        $data->price,
+                        sprintf('https://api.technodom.kz/f3/api/v1/images/800/800/%s', Arr::first($data->images)),
+                        $category->id);
 
-    public function addProduct($product)
-    {
-        try {
-            dd($product->recommends[0]->name);
-//            Product::create([
-//                'name' => $product->name;
-//            ]);
-
-        } catch (RequestException $exception) {
-            return $exception;
+                    $this->addProduct($parseProduct);
+                }
+            }
         }
     }
 }
