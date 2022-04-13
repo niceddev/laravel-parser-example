@@ -38,7 +38,7 @@ class JmartParserService extends ParserService
         $category = Category::whereAlias(Str::lower($categoryEnum->name))->firstOrFail();
 
         if ($response && $status === 200) {
-            $totalPage = (int) ceil($response->data->total_pages / $response->data->items_per_page);
+            $totalPage = (int) $response->data->total_pages;
 
             foreach ($response->data->products as $data) {
                 $parseProduct = new ParseProduct(
