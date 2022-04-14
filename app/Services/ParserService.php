@@ -29,7 +29,7 @@ abstract class ParserService implements ParserInterface
 
     public function addProduct(ParseProduct $parseProduct): Product
     {
-        return Product::updateOrCreate($parseProduct->toArray());
+        return Product::create($parseProduct->toArray());
     }
 
     public function getCategory($categoryEnum): int

@@ -8,6 +8,7 @@ class ParseProduct
     private int $price;
     private string $image_url;
     private int $category_id;
+    private int $original_id;
 
     /**
      * @param  string  $name
@@ -15,12 +16,13 @@ class ParseProduct
      * @param  string  $image_url
      * @param  int  $category_id
      */
-    public function __construct(string $name, int $price, string $image_url, int $category_id)
+    public function __construct(string $name, int $price, string $image_url, int $category_id, int $original_id)
     {
         $this->name = $name;
         $this->price = $price;
         $this->image_url = $image_url;
         $this->category_id = $category_id;
+        $this->original_id = $original_id;
     }
 
     /**
@@ -95,13 +97,32 @@ class ParseProduct
         return $this;
     }
 
+    /**
+     * @return int
+     */
+    public function getOriginalId(): int
+    {
+        return $this->original_id;
+    }
+
+    /**
+     * @param int $original_id
+     * @return ParseProduct
+     */
+    public function setOriginalId(int $original_id): self
+    {
+        $this->original_id = $original_id;
+        return $this;
+    }
+
     public function toArray()
     {
         return [
             'name'        => $this->name,
             'price'       => $this->price,
             'image_url'   => $this->image_url,
-            'category_id' => $this->category_id
+            'category_id' => $this->category_id,
+            'original_id' => $this->original_id
         ];
     }
 }

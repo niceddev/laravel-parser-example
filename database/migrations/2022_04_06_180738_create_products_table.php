@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedMediumInteger('price');
             $table->string('image_url');
             $table->foreignId('category_id');
+            $table->unsignedMediumInteger('original_id');
         });
     }
 

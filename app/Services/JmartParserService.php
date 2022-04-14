@@ -22,7 +22,8 @@ class JmartParserService extends ParserService
                         $data->product,
                         $data->base_price,
                         $data->image_url,
-                        $this->getCategory($categoryEnum)
+                        $this->getCategory($categoryEnum),
+                        $data->product_id
                     );
 
                     $this->addProduct($parseProduct);
