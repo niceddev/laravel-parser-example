@@ -11,4 +11,6 @@ interface ParserInterface
     public function parsePages($categoryEnum, int $page = 1);
 
     public function addProduct(ParseProduct $parseProduct);
+
+    public function getTotalPage(string $categoryEnum);
 }

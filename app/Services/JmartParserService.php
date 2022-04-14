@@ -3,39 +3,43 @@
 namespace App\Services;
 
 use App\Entities\ParseProduct;
-use App\Models\Category;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 
 class JmartParserService extends ParserService
 {
     public function parsePages($categoryEnum, int $page = 1)
     {
-        $request = Http::withoutVerifying()
+        do {
+            $request = Http::withoutVerifying()
             ->withHeaders($this->headers)
             ->get(sprintf('%s&page=%s', $categoryEnum->value, $page));
 
+            $response = $request?->object();
+
+            if ($request->status() === 200) {
+                foreach ($response->data->products as $data) {
+                    $parseProduct = new ParseProduct(
+                        $data->product,
+                        $data->base_price,
+                        $data->image_url,
+                        $this->getCategory($categoryEnum)
+                    );
+
+                    $this->addProduct($parseProduct);
+                }
+
+                $page++;
+            }
+        } while($page <= $this->getTotalPage($categoryEnum->value));
+    }
+
+    public function getTotalPage(string $categoryEnum){
+        $request = Http::withoutVerifying()
+            ->withHeaders($this->headers)
+            ->get($categoryEnum);
+
         $response = $request?->object();
-        $status = $request ? $request->status() : 500;
-        $category = Category::whereAlias(Str::lower($categoryEnum->name))->firstOrFail();
 
-        if ($response && $status === 200) {
-            $totalPage = (int) $response->data->total_pages;
-
-            foreach ($response->data->products as $data) {
-                $parseProduct = new ParseProduct(
-                    $data->product,
-                    $data->base_price,
-                    $data->image_url,
-                    $category->id
-                );
-
-                $this->addProduct($parseProduct);
-            }
-
-            if ($totalPage > $page) {
-                $this->parsePages($categoryEnum, $page + 1);
-            }
-        }
+        return $response->data->total_pages;
     }
 }

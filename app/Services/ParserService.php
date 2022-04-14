@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Contracts\ParserInterface;
 use App\Entities\ParseProduct;
+use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Str;
 
 abstract class ParserService implements ParserInterface
 {
@@ -28,5 +30,12 @@ abstract class ParserService implements ParserInterface
     public function addProduct(ParseProduct $parseProduct): Product
     {
         return Product::updateOrCreate($parseProduct->toArray());
+    }
+
+    public function getCategory($categoryEnum): int
+    {
+        $categoryId = Category::whereAlias(Str::lower($categoryEnum->name))->firstOrFail();
+
+        return $categoryId->id;
     }
 }
