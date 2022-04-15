@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
@@ -19,9 +20,12 @@ class AuthService
     function login(AuthRequest $request)
     {
         $user = User::where('email', $request->email)->firstOrFail();
-        dd(Auth::attempt($request->validated()));
+        $validated = $request->validated();
 
-        if ($user && Auth::attempt(['email' => $email, 'password' => $password])) {
+
+        dd(Auth::attempt($validated));
+
+        if ($user && Auth::attempt($request->validated())) {
 //            dd($user->createToken('user-token'));
 
             dd('zxc');
