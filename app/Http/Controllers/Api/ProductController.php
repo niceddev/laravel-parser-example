@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\ServiceEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\ProductResource;
 use App\Models\Product;
@@ -17,12 +18,16 @@ class ProductController extends Controller
         return ProductResource::collection($products);
     }
 
-    public function show(Request $request, Product $product)
+    public function show(Product $product)
     {
-//        $this->parserService->parseDescription($slug);
         if (is_null($product->description)){
-
+            $parseService = app(ServiceEnum::from($product->service)->services()[$product->service]);
+            dd($parseService->parseDescription($product->original_id));
+            Product::update([
+               'description' => 'test',
+            ]);
         }
-        dd($product->id);
+
+        return ProductResource::make($product);
     }
 }
