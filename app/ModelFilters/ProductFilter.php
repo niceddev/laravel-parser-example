@@ -9,9 +9,9 @@ class ProductFilter extends ModelFilter
 {
     protected $drop_id = false;
 
-    public function categoryId(int $category_id)
+    public function categoryId(int $id)
     {
-        return $this->withCategory($category_id);
+        return $this->where('category_id', $id);
     }
 
     public function priceFrom(int $price_from)

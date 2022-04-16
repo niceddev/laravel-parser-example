@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,10 +21,13 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-//Route::get('/user', [UserController::class, 'show'])->middleware('auth:sanctum');
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/search', [ProductController::class, 'search']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/brands', [BrandController::class, 'index']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/user', [UserController::class, 'show'])->name('user');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});

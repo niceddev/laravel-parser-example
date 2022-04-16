@@ -50,4 +50,16 @@ class TechnodomParserService extends ParserService
         return (int) ceil($response->total / $response->limit);
     }
 
+    public function parseDescription(string $originalId)
+    {
+//        $request = Http::get('https://www.mechta.kz/api/new/product/'.$originalId.'/description');
+//
+//        $response = $request?->object();
+//
+//        if ($request->status() === 200){
+//            dd($response);
+//        }
+
+//        return response()->setStatusCode(500);
+    }
 }

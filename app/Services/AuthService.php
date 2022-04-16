@@ -15,6 +15,7 @@ class AuthService
 
         $user = User::create([
             'name' => $credentials['name'],
+            'avatar' => $credentials['avatar'] === null ? '/images/default.png' : $credentials['avatar'],
             'email' => $credentials['email'],
             'password' => Hash::make($credentials['password']),
         ]);

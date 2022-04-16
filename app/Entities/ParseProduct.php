@@ -28,11 +28,11 @@ class ParseProduct
         $this->name = $name;
         $this->price = $price;
         $this->image_url = $image_url;
-        $this->description = $description;
         $this->brand = $brand;
         $this->category_id = $category_id;
         $this->original_id = $original_id;
         $this->service = $service;
+        $this->description = $description;
     }
 
     /**
@@ -185,11 +185,11 @@ class ParseProduct
             'name'        => $this->name,
             'price'       => $this->price,
             'image_url'   => $this->image_url,
-            'description' => $this->description,
             'brand'       => $this->brand,
             'category_id' => $this->category_id,
             'original_id' => $this->original_id,
-            'service'     => $this->service
+            'service'     => $this->service,
+            'description' => $this->description
         ];
     }
 }

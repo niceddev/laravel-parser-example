@@ -32,10 +32,7 @@ class ProductController extends Controller
     {
         if (is_null($product->description)) {
             $parseService = app(ServiceEnum::from($product->service)->services()[$product->service]);
-            dd($parseService->parseDescription($product->original_id));
-            Product::update([
-                'description' => 'test',
-            ]);
+            $parseService->parseDescription($product->original_id);
         }
 
         return ProductResource::make($product);

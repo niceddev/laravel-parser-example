@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entities\ParseProduct;
 use App\Enums\ServiceEnum;
+use App\Models\Product;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -66,15 +67,17 @@ class MechtaParserService extends ParserService
 
     public function parseDescription(string $originalId)
     {
-        $request = Http::get('https://www.mechta.kz/api/new/product/'.$originalId.'/description');
+        $request = Http::withoutVerifying()
+            ->withHeaders($this->headers)
+            ->get('https://www.mechta.kz/api/new/product/'.$originalId.'/description');
 
         $response = $request?->object();
 
         if ($request->status() === 200){
-            dd($response);
+            Product::where('original_id', $originalId)->update(['description' => $response->data->description]);
         }
 
-        return response()->setStatusCode(500);
+        return response();
     }
 
 
