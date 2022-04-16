@@ -19,9 +19,7 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $this->authService->register($request);
-
-        return $this->authService->login($request['email'], $request['password']);
+        return $this->authService->register($request);
     }
 
     public function login(LoginRequest $request)
@@ -30,16 +28,15 @@ class AuthController extends Controller
         $email = $credentials['email'];
         $password = $credentials['password'];
 
-        $user = $this->authService->login($email, $password);
-
-        return new UserResponse($user);
+        return $this->authService->login($email, $password);
     }
 
     public function logout()
     {
         auth()->user()->tokens()->delete();
-        auth()->logout();
 
-        return redirect('/');
+        return [
+            'message' => 'Logged out'
+        ];
     }
 }

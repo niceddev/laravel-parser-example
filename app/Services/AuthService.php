@@ -19,7 +19,14 @@ class AuthService
             'password' => Hash::make($credentials['password']),
         ]);
 
-        return $user;
+        $token = $user->createToken('user-token')->plainTextToken;
+
+        $response = [
+            'user'  => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);
     }
 
     function login(string $email, string $password)
@@ -27,10 +34,16 @@ class AuthService
         $user = User::where('email', $email)->firstOrFail();
 
         if ($user && Auth::attempt(['email' => $email, 'password' => $password])) {
-            $user->createToken('user-token');
-            return $user;
+            $token = $user->createToken('user-token')->plainTextToken;
+
+            $response = [
+                'user'  => $user,
+                'token' => $token
+            ];
+
+            return response($response, 201);
         }
 
-        return null;
+        return response()->setStatusCode(401);
     }
 }
