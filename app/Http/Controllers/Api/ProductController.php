@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Enums\ServiceEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Product\IndexRequest;
 use App\Http\Resources\Api\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index(Request $request)
+    public function index(IndexRequest $request)
     {
         $products = Product::filter($request->all())
-            ->paginate(24);
+            ->paginate($request->input('limit'));
 
         return ProductResource::collection($products);
     }
