@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entities\ParseProduct;
 use App\Enums\ServiceEnum;
+use App\Models\Product;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -25,7 +26,7 @@ class TechnodomParserService extends ParserService
                         $data->title,
                         $data->price,
                         sprintf('https://api.technodom.kz/f3/api/v1/images/800/800/%s', Arr::first($data->images)),
-                        Str::ucfirst(Str::lower($data->brand_info->title)),
+                        Str::ucfirst(Str::lower($data?->brand_info?->title)),
                         $this->getCategory($categoryEnum),
                         $data->sku,
                         ServiceEnum::TECHNODOM->value
@@ -52,14 +53,16 @@ class TechnodomParserService extends ParserService
 
     public function parseDescription(string $originalId)
     {
-//        $request = Http::get('https://www.mechta.kz/api/new/product/'.$originalId.'/description');
-//
-//        $response = $request?->object();
-//
-//        if ($request->status() === 200){
-//            dd($response);
-//        }
+        $request = Http::withoutVerifying()
+            ->withHeaders($this->headers)
+            ->get('https://api.technodom.kz/katalog/api/v1/products/'.$originalId.'/about');
 
-//        return response()->setStatusCode(500);
+        $response = $request?->body();
+
+        if ($request->status() === 200){
+            Product::where('original_id', $originalId)->update(['description' => $response]);
+        }
+
+        return response();
     }
 }

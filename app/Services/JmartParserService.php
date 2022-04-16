@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entities\ParseProduct;
 use App\Enums\ServiceEnum;
+use App\Http\Resources\Api\ProductResource;
 use App\Models\Product;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -22,12 +23,12 @@ class JmartParserService extends ParserService
             if ($request->status() === 200) {
                 foreach ($response->data->products as $data) {
                     $parseProduct = new ParseProduct(
-                        $data->product,
-                        $data->base_price,
-                        $data->image_url,
-                        Str::ucfirst(Str::lower($data?->product_features[0]?->variant)),
-                        $this->getCategory($categoryEnum),
-                        $data->product_id,
+                        $data?->product,
+                        $data?->base_price,
+                        $data?->image_url,
+                        Str::ucfirst(Str::lower($data?->product_features[0]?->variant)) ?? '',
+                        $this?->getCategory($categoryEnum),
+                        $data?->product_id,
                         ServiceEnum::JMART->value,
                     );
 
@@ -59,7 +60,8 @@ class JmartParserService extends ParserService
         $response = $request?->object();
 
         if ($request->status() === 200){
-            Product::where('original_id', $originalId)->update(['description' => $response->data->full_description]);
+            $product = Product::where('original_id', $originalId)->update(['description' => $response->data->full_description]);
+            return ProductResource::make($product);
         }
 
         return response();

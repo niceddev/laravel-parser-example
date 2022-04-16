@@ -34,15 +34,15 @@ class MechtaParserService extends ParserService
 
                 foreach ($response->data->items as $data) {
                     $id = $data->id;
-                    $discountedPrice = $priceResponse->data->$id->prices->discounted_price;
+                    $discountedPrice = $priceResponse?->data?->$id?->prices?->discounted_price;
 
                     $parseProduct = new ParseProduct(
-                        $data->title,
+                        $data?->title,
                         $discountedPrice,
-                        $data->photos[0],
-                        Str::ucfirst(Str::lower($data->metrics->brand)),
-                        $this->getCategory($categoryEnum),
-                        $data->code,
+                        $data?->photos[0],
+                        Str::ucfirst(Str::lower($data?->metrics?->brand)),
+                        $this?->getCategory($categoryEnum),
+                        $data?->code,
                         ServiceEnum::MECHTA->value
                     );
 
@@ -76,6 +76,7 @@ class MechtaParserService extends ParserService
         if ($request->status() === 200){
             Product::where('original_id', $originalId)->update(['description' => $response->data->description]);
         }
+
 
         return response();
     }
