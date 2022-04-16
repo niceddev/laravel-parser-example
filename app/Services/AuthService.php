@@ -14,16 +14,14 @@ class AuthService
         $user = User::create($request->validated());
         $user->createToken('user-token');
 
-        return response($user, 201);
+        return $user;
     }
 
     function login(AuthRequest $request)
     {
-        $user = User::where('email', $request->email)->firstOrFail();
-        $validated = $request->validated();
+        $user = User::where('email', $request->only('email'))->firstOrFail();
 
-
-        dd(Auth::attempt($validated));
+        dd(Auth::attempt($request->only('email', 'password')));
 
         if ($user && Auth::attempt($request->validated())) {
 //            dd($user->createToken('user-token'));
