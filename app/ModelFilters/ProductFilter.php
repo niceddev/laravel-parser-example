@@ -6,10 +6,20 @@ use EloquentFilter\ModelFilter;
 
 class ProductFilter extends ModelFilter
 {
-    public $relations = [];
+    protected $drop_id = false;
 
-    public function category(int $id)
+    public function categoryId(int $category_id)
     {
-        return $this->withCategory($id)->get();
+        return $this->withCategory($category_id);
+    }
+
+    public function priceFrom(int $price_from)
+    {
+        return $this->where('price', '>=', $price_from);
+    }
+
+    public function priceTo(int $price_to)
+    {
+        return $this->where('price', '<=', $price_to);
     }
 }

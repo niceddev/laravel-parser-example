@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Contracts\ParserInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\ProductResource;
 use App\Models\Product;
@@ -12,7 +11,8 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $products = Product::filter($request->all())->paginate(24);
+        $products = Product::filter($request->all())
+            ->paginate(24);
 
         return ProductResource::collection($products);
     }
