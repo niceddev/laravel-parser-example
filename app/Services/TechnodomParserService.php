@@ -39,7 +39,8 @@ class TechnodomParserService extends ParserService
         } while($page <= $this->getTotalPage($categoryEnum->value));
     }
 
-    public function getTotalPage(string $categoryEnum){
+    public function getTotalPage(string $categoryEnum)
+    {
         $request = Http::withoutVerifying()
             ->withHeaders($this->headers)
             ->get($categoryEnum);
@@ -48,4 +49,5 @@ class TechnodomParserService extends ParserService
 
         return (int) ceil($response->total / $response->limit);
     }
+
 }

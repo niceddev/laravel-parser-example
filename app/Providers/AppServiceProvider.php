@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Contracts\ParserInterface;
+use App\Services\ParserService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

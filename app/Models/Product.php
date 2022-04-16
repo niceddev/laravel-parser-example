@@ -27,11 +27,6 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function description()
-    {
-        return $this->hasOne(ProductDescription::class);
-    }
-
     public function scopeWithCategory($query, $id)
     {
         return $query->where('category_id', $id);

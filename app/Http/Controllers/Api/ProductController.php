@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Contracts\ParserInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\ProductResource;
-use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -17,9 +17,12 @@ class ProductController extends Controller
         return ProductResource::collection($products);
     }
 
-    public function show(Request $request)
+    public function show(Request $request, Product $product)
     {
-//        dd(Product::where('original_id', $request)->get());
-        dd('asd');
+//        $this->parserService->parseDescription($slug);
+        if (is_null($product->description)){
+
+        }
+        dd($product->id);
     }
 }

@@ -7,25 +7,28 @@ class ParseProduct
     private string $name;
     private int $price;
     private string $image_url;
+    private ?string $description;
     private string $brand;
     private int $category_id;
     private string $original_id;
     private int $service;
 
     /**
-     * @param  string  $name
-     * @param  int  $price
-     * @param  string  $image_url
-     * @param  string  $brand
-     * @param  int  $category_id
-     * @param  string  $original_id
-     * @param  int  $service
+     * @param string $name
+     * @param int $price
+     * @param string $image_url
+     * @param string $brand
+     * @param int $category_id
+     * @param string $original_id
+     * @param int $service
+     * @param string|null $description
      */
-    public function __construct(string $name, int $price, string $image_url, string $brand, int $category_id, string $original_id, int $service)
+    public function __construct(string $name, int $price, string $image_url, string $brand, int $category_id, string $original_id, int $service, string $description = null)
     {
         $this->name = $name;
         $this->price = $price;
         $this->image_url = $image_url;
+        $this->description = $description;
         $this->brand = $brand;
         $this->category_id = $category_id;
         $this->original_id = $original_id;
@@ -158,12 +161,31 @@ class ParseProduct
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string|null $description
+     * @return ParseProduct
+     */
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
+
     public function toArray()
     {
         return [
             'name'        => $this->name,
             'price'       => $this->price,
             'image_url'   => $this->image_url,
+            'description' => $this->description,
             'brand'       => $this->brand,
             'category_id' => $this->category_id,
             'original_id' => $this->original_id,
