@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entities\ParseProduct;
 use App\Enums\ServiceEnum;
+use App\Models\Product;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -28,7 +29,6 @@ class JmartParserService extends ParserService
                         $this->getCategory($categoryEnum),
                         $data->product_id,
                         ServiceEnum::JMART->value,
-                        $data->full_description
                     );
 
                     $this->addProduct($parseProduct);
@@ -52,7 +52,17 @@ class JmartParserService extends ParserService
 
     public function parseDescription(string $originalId)
     {
-        return null;
+        $request = Http::withoutVerifying()
+            ->withHeaders($this->headers)
+            ->get('https://jmart.kz/gw/catalog/v1/products/'.$originalId);
+
+        $response = $request?->object();
+
+        if ($request->status() === 200){
+            Product::where('original_id', $originalId)->update(['description' => $response->data->full_description]);
+        }
+
+        return response();
     }
 
 }
