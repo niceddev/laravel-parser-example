@@ -137,6 +137,9 @@ return [
     */
 
     'providers' => [
+        // Other service providers...
+
+        EloquentFilter\ServiceProvider::class,
 
         /*
          * Laravel Framework Service Providers...

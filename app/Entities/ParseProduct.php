@@ -7,6 +7,7 @@ class ParseProduct
     private string $name;
     private int $price;
     private string $image_url;
+    private string $brand;
     private int $category_id;
     private string $original_id;
     private int $service;
@@ -15,15 +16,17 @@ class ParseProduct
      * @param  string  $name
      * @param  int  $price
      * @param  string  $image_url
+     * @param  string  $brand
      * @param  int  $category_id
      * @param  string  $original_id
      * @param  int  $service
      */
-    public function __construct(string $name, int $price, string $image_url, int $category_id, string $original_id, int $service)
+    public function __construct(string $name, int $price, string $image_url, string $brand, int $category_id, string $original_id, int $service)
     {
         $this->name = $name;
         $this->price = $price;
         $this->image_url = $image_url;
+        $this->brand = $brand;
         $this->category_id = $category_id;
         $this->original_id = $original_id;
         $this->service = $service;
@@ -137,12 +140,31 @@ class ParseProduct
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getBrand(): string
+    {
+        return $this->brand;
+    }
+
+    /**
+     * @param string $brand
+     * @return ParseProduct
+     */
+    public function setBrand(string $brand): self
+    {
+        $this->brand = $brand;
+        return $this;
+    }
+
     public function toArray()
     {
         return [
             'name'        => $this->name,
             'price'       => $this->price,
             'image_url'   => $this->image_url,
+            'brand'       => $this->brand,
             'category_id' => $this->category_id,
             'original_id' => $this->original_id,
             'service'     => $this->service

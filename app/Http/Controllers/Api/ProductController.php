@@ -10,14 +10,9 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index(string $categoryAlias = null)
+    public function index(Request $request)
     {
-        if (!isset($categoryAlias)){
-            return Product::paginate(24);
-        }
-
-        $category = Category::whereAlias($categoryAlias)->firstOrFail();
-        $products = Product::where('category_id', $category->id)->paginate(24);
+        $products = Product::filter($request->all())->paginate(24);
 
         return ProductResource::collection($products);
     }

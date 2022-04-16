@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedMediumInteger('price');
             $table->string('image_url');
+            $table->string('brand');
             $table->foreignId('category_id');
             $table->string('original_id');
             $table->tinyInteger('service')->comment('Магазин-источник');

@@ -6,6 +6,7 @@ use App\Entities\ParseProduct;
 use App\Enums\ServiceEnum;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class TechnodomParserService extends ParserService
 {
@@ -24,6 +25,7 @@ class TechnodomParserService extends ParserService
                         $data->title,
                         $data->price,
                         sprintf('https://api.technodom.kz/f3/api/v1/images/800/800/%s', Arr::first($data->images)),
+                        Str::ucfirst(Str::lower($data->brand_info->title)),
                         $this->getCategory($categoryEnum),
                         $data->sku,
                         ServiceEnum::TECHNODOM->value
