@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 
@@ -18,7 +19,7 @@ class ProductController extends Controller
         $category = Category::whereAlias($categoryAlias)->firstOrFail();
         $products = Product::where('category_id', $category->id)->paginate(24);
 
-        return $products;
+        return ProductResource::collection($products);
     }
 
 }

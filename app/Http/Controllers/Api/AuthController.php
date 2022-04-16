@@ -18,6 +18,7 @@ class AuthController extends Controller
 
     public function register(AuthRequest $request)
     {
+        dd('asd');
         $this->authService->register($request);
 
         return $this->authService->login($request);
