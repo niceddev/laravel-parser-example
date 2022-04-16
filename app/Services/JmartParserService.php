@@ -26,7 +26,7 @@ class JmartParserService extends ParserService
                         $data?->product,
                         $data?->base_price,
                         $data?->image_url,
-                        Str::ucfirst(Str::lower($data?->product_features[0]?->variant)) ?? '',
+                        Str::ucfirst(Str::lower($data?->product_features[0]?->variant ?? '')),
                         $this?->getCategory($categoryEnum),
                         $data?->product_id,
                         ServiceEnum::JMART->value,
