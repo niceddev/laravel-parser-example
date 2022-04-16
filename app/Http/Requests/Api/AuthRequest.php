@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,7 +26,7 @@ class AuthRequest extends FormRequest
         return [
             'name'     => ['required'],
             'email'    => ['required'],
-            'password' => ['required'],
+            'password' => ['required', 'string', 'min:6']
         ];
     }
 }

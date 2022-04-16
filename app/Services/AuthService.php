@@ -2,10 +2,9 @@
 
 namespace App\Services;
 
-use App\Http\Requests\AuthRequest;
+use App\Http\Requests\Api\AuthRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
@@ -21,6 +20,7 @@ class AuthService
     {
         $user = User::where('email', $request->only('email'))->firstOrFail();
 
+        dd($request->validated());
         dd(Auth::attempt($request->only('email', 'password')));
 
         if ($user && Auth::attempt($request->validated())) {
