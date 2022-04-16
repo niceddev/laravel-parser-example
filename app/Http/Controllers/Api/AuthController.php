@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         $user = $this->authService->login($email, $password);
 
-        return UserResponse::collection($user);
+        return new UserResponse($user);
     }
 
     public function logout()

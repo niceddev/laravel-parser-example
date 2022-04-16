@@ -18,7 +18,6 @@ class AuthService
             'email' => $credentials['email'],
             'password' => Hash::make($credentials['password']),
         ]);
-        $user->createToken('user-token');
 
         return $user;
     }
@@ -28,14 +27,8 @@ class AuthService
         $user = User::where('email', $email)->firstOrFail();
 
         if ($user && Auth::attempt(['email' => $email, 'password' => $password])) {
-            $token = $user->createToken('user-token');
-
-            $response = [
-                'user'  => $user,
-                'token' => $token
-            ];
-
-            return response($response, 200);
+            $user->createToken('user-token');
+            return $user;
         }
 
         return null;
