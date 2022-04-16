@@ -2,35 +2,43 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Api\AuthRequest;
+use App\Http\Requests\Api\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
-    public function register(AuthRequest $request)
+    public function register(RegisterRequest $request)
     {
-        $user = User::create($request->validated());
+        $credentials = $request->validated();
+
+        $user = User::create([
+            'name' => $credentials['name'],
+            'email' => $credentials['email'],
+            'password' => Hash::make($credentials['password']),
+        ]);
         $user->createToken('user-token');
 
         return $user;
     }
 
-    function login(AuthRequest $request)
+    function login(string $email, string $password)
     {
-        $user = User::where('email', $request->only('email'))->firstOrFail();
+        $user = User::where('email', $email)->firstOrFail();
 
-        dd($request->validated());
-        dd(Auth::attempt($request->only('email', 'password')));
+        dd($user);
+        Auth::attempt([
+            'email' => $email,
+            'password' => $password
+        ]);
 
-        if ($user && Auth::attempt($request->validated())) {
+//        if ($user && Auth::attempt($request->validated())) {
 //            dd($user->createToken('user-token'));
+//        }
 
-            dd('zxc');
+        dd(auth()->user());
 
-            return response($user, 200);
-        }
-
-        return response(null, 401);
+        return null;
     }
 }

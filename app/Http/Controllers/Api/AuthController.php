@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\AuthRequest;
+use App\Http\Requests\Api\LoginRequest;
+use App\Http\Requests\Api\RegisterRequest;
 use App\Http\Resources\Api\UserResponse;
 use App\Services\AuthService;
 
@@ -16,17 +17,20 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-    public function register(AuthRequest $request)
+    public function register(RegisterRequest $request)
     {
-        dd('asd');
         $this->authService->register($request);
 
-        return $this->authService->login($request);
+        return $this->authService->login($request['email'], $request['password']);
     }
 
-    public function login(AuthRequest $request)
+    public function login(LoginRequest $request)
     {
-        $user = $this->authService->login($request);
+        $credentials = $request->validated();
+        $email = $credentials['email'];
+        $password = $credentials['password'];
+
+        $user = $this->authService->login($email, $password);
 
         return UserResponse::collection($user);
     }
