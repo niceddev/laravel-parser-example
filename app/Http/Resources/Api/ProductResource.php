@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api;
 
+use App\Models\ProductDescription;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -19,6 +20,7 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'image' => $this->image_url,
             'category' => $this->category_id,
+            'description' => ProductDescription::whereId($this->id),
             'service' => $this->service
         ];
     }

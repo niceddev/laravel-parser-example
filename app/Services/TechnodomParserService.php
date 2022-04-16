@@ -24,7 +24,8 @@ class TechnodomParserService extends ParserService
                         $data->price,
                         sprintf('https://api.technodom.kz/f3/api/v1/images/800/800/%s', Arr::first($data->images)),
                         $this->getCategory($categoryEnum),
-                        $data->sku
+                        $data->sku,
+                        'TECHNODOM'
                     );
 
                     $this->addProduct($parseProduct);

@@ -9,7 +9,6 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-
     public function index(string $categoryAlias = null)
     {
         if (!isset($categoryAlias)){
@@ -22,4 +21,8 @@ class ProductController extends Controller
         return ProductResource::collection($products);
     }
 
+    public function show()
+    {
+
+    }
 }

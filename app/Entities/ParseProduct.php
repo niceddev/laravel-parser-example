@@ -8,7 +8,8 @@ class ParseProduct
     private int $price;
     private string $image_url;
     private int $category_id;
-    private int $original_id;
+    private string $original_id;
+    private string $service;
 
     /**
      * @param  string  $name
@@ -16,13 +17,14 @@ class ParseProduct
      * @param  string  $image_url
      * @param  int  $category_id
      */
-    public function __construct(string $name, int $price, string $image_url, int $category_id, int $original_id)
+    public function __construct(string $name, int $price, string $image_url, int $category_id, string $original_id, string $service)
     {
         $this->name = $name;
         $this->price = $price;
         $this->image_url = $image_url;
         $this->category_id = $category_id;
         $this->original_id = $original_id;
+        $this->service = $service;
     }
 
     /**
@@ -115,6 +117,23 @@ class ParseProduct
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getService(): string
+    {
+        return $this->service;
+    }
+
+    /**
+     * @param string $service
+     * @return ParseProduct
+     */
+    public function setService(string $service): self
+    {
+        $this->service = $service;
+    }
+
     public function toArray()
     {
         return [
@@ -122,7 +141,8 @@ class ParseProduct
             'price'       => $this->price,
             'image_url'   => $this->image_url,
             'category_id' => $this->category_id,
-            'original_id' => $this->original_id
+            'original_id' => $this->original_id,
+            'service'     => $this->service
         ];
     }
 }

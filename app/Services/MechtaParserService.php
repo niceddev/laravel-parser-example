@@ -38,7 +38,8 @@ class MechtaParserService extends ParserService
                         $discountedPrice,
                         $data->photos[0],
                         $this->getCategory($categoryEnum),
-                        $data->code
+                        $data->code,
+                        "MECHTA"
                     );
 
                     $this->addProduct($parseProduct);
