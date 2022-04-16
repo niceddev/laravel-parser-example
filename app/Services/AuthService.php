@@ -27,17 +27,16 @@ class AuthService
     {
         $user = User::where('email', $email)->firstOrFail();
 
-        dd($user);
-        Auth::attempt([
-            'email' => $email,
-            'password' => $password
-        ]);
+        if ($user && Auth::attempt(['email' => $email, 'password' => $password])) {
+            $token = $user->createToken('user-token');
 
-//        if ($user && Auth::attempt($request->validated())) {
-//            dd($user->createToken('user-token'));
-//        }
+            $response = [
+                'user'  => $user,
+                'token' => $token
+            ];
 
-        dd(auth()->user());
+            return response($response, 200);
+        }
 
         return null;
     }
