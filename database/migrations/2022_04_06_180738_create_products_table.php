@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image_url');
             $table->foreignId('category_id');
             $table->string('original_id');
-            $table->string('service')->comment('Магазин-источник');
+            $table->tinyInteger('service')->comment('Магазин-источник');
         });
     }
 

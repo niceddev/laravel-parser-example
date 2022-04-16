@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entities\ParseProduct;
+use App\Enums\ServiceEnum;
 use Illuminate\Support\Facades\Http;
 
 class JmartParserService extends ParserService
@@ -24,7 +25,7 @@ class JmartParserService extends ParserService
                         $data->image_url,
                         $this->getCategory($categoryEnum),
                         $data->product_id,
-                        'JMART'
+                        ServiceEnum::JMART->value
                     );
 
                     $this->addProduct($parseProduct);

@@ -9,15 +9,17 @@ class ParseProduct
     private string $image_url;
     private int $category_id;
     private string $original_id;
-    private string $service;
+    private int $service;
 
     /**
      * @param  string  $name
      * @param  int  $price
      * @param  string  $image_url
      * @param  int  $category_id
+     * @param  string  $original_id
+     * @param  int  $service
      */
-    public function __construct(string $name, int $price, string $image_url, int $category_id, string $original_id, string $service)
+    public function __construct(string $name, int $price, string $image_url, int $category_id, string $original_id, int $service)
     {
         $this->name = $name;
         $this->price = $price;
@@ -118,20 +120,21 @@ class ParseProduct
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getService(): string
+    public function getService(): int
     {
         return $this->service;
     }
 
     /**
-     * @param string $service
+     * @param int $service
      * @return ParseProduct
      */
-    public function setService(string $service): self
+    public function setService(int $service): self
     {
         $this->service = $service;
+        return $this;
     }
 
     public function toArray()

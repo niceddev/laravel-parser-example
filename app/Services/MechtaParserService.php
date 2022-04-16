@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entities\ParseProduct;
+use App\Enums\ServiceEnum;
 use Illuminate\Support\Facades\Http;
 
 class MechtaParserService extends ParserService
@@ -39,7 +40,7 @@ class MechtaParserService extends ParserService
                         $data->photos[0],
                         $this->getCategory($categoryEnum),
                         $data->code,
-                        "MECHTA"
+                        ServiceEnum::MECHTA->value
                     );
 
                     $this->addProduct($parseProduct);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -21,8 +22,9 @@ class ProductController extends Controller
         return ProductResource::collection($products);
     }
 
-    public function show()
+    public function show(Request $request)
     {
-
+//        dd(Product::where('original_id', $request)->get());
+        dd('asd');
     }
 }
