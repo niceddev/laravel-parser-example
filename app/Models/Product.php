@@ -15,6 +15,7 @@ class Product extends Model
         'image_url',
         'category_id',
         'original_id',
+        'service'
     ];
 
     public $timestamps = false;
@@ -22,6 +23,11 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function description()
+    {
+        return $this->hasOne(ProductDescription::class);
     }
 
 }
