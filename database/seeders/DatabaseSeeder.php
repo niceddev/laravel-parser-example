@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         Category::truncate();
 
         $this->call([
-            CategorySeeder::class
+            CategorySeeder::class,
+            CitySeeder::class
         ]);
     }
 }

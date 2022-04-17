@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Enums\ServiceEnum;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class ParseCommand extends Command

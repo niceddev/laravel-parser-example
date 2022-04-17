@@ -43,6 +43,6 @@ class AuthService
             return response($response, 201);
         }
 
-        return response()->setStatusCode(401);
+        return response()->setStatusCode();
     }
 }

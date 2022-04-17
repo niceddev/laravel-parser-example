@@ -9,6 +9,11 @@ class ProductFilter extends ModelFilter
 {
     protected $drop_id = false;
 
+//    public function cit(int $id)
+//    {
+//        return $this->where('city', $id);
+//    }
+
     public function categoryId(int $id)
     {
         return $this->where('category_id', $id);
