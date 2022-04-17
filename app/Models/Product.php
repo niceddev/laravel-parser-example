@@ -17,7 +17,8 @@ class Product extends Model
         'brand',
         'category_id',
         'original_id',
-        'service'
+        'service',
+        'description',
     ];
 
     public $timestamps = false;

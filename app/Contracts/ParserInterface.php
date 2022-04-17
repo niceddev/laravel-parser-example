@@ -10,7 +10,7 @@ interface ParserInterface
 
     public function parsePages($categoryEnum, int $page = 1);
 
-    public function parseDescription(string $originalId);
+    public function parseDescription(string $originalId): string;
 
     public function addProduct(ParseProduct $parseProduct);
 

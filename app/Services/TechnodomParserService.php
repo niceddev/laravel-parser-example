@@ -51,7 +51,7 @@ class TechnodomParserService extends ParserService
         return (int) ceil($response->total / $response->limit);
     }
 
-    public function parseDescription(string $originalId)
+    public function parseDescription(string $originalId): string
     {
         $request = Http::withoutVerifying()
             ->withHeaders($this->headers)
@@ -59,10 +59,6 @@ class TechnodomParserService extends ParserService
 
         $response = $request?->body();
 
-        if ($request->status() === 200){
-            Product::where('original_id', $originalId)->update(['description' => $response]);
-        }
-
-        return response();
+        return '';
     }
 }

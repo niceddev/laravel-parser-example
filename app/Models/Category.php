@@ -12,13 +12,18 @@ class Category extends Model
     protected $fillable = [
         'name',
         'parent_id',
-        'alias'
+        'alias',
     ];
 
     public $timestamps = false;
 
-    public function products(){
+    public function products()
+    {
         return $this->hasMany(Product::class);
     }
 
+    public function subCategories()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
 }

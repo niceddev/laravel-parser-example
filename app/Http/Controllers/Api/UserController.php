@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\UserResource;
 
 class UserController extends Controller
 {
     public function show()
     {
-        $response = [
-            'user' => auth()->user(),
-//            'token' => auth()->user()->tokens()
-        ];
-
-        return $response;
+        return UserResource::make(auth()->user());
     }
 }

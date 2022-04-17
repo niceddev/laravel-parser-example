@@ -65,7 +65,7 @@ class MechtaParserService extends ParserService
         return (int) ceil($response->data->all_items_count / $response->data->page_items_count);
     }
 
-    public function parseDescription(string $originalId)
+    public function parseDescription(string $originalId): string
     {
         $request = Http::withoutVerifying()
             ->withHeaders($this->headers)
@@ -74,12 +74,9 @@ class MechtaParserService extends ParserService
         $response = $request?->object();
 
         if ($request->status() === 200){
-            Product::where('original_id', $originalId)->update(['description' => $response->data->description]);
+            return $response->data->description;
         }
 
-
-        return response();
+        return '';
     }
-
-
 }

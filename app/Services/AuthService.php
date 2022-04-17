@@ -11,13 +11,11 @@ class AuthService
 {
     public function register(RegisterRequest $request)
     {
-        $credentials = $request->validated();
-
         $user = User::create([
-            'name' => $credentials['name'],
-            'avatar' => $credentials['avatar'] === null ? '/images/default.png' : $credentials['avatar'],
-            'email' => $credentials['email'],
-            'password' => Hash::make($credentials['password']),
+            'name'     => $request->input('name'),
+            'avatar'   => $request->input('avatar', '/images/default.png'),
+            'email'    => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
         ]);
 
         $token = $user->createToken('user-token')->plainTextToken;

@@ -51,7 +51,7 @@ class JmartParserService extends ParserService
         return $response->data->total_pages;
     }
 
-    public function parseDescription(string $originalId)
+    public function parseDescription(string $originalId): string
     {
         $request = Http::withoutVerifying()
             ->withHeaders($this->headers)
@@ -60,11 +60,9 @@ class JmartParserService extends ParserService
         $response = $request?->object();
 
         if ($request->status() === 200){
-            $product = Product::where('original_id', $originalId)->update(['description' => $response->data->full_description]);
-            return ProductResource::make($product);
+            return $response->data->full_description;
         }
 
-        return response();
+        return '';
     }
-
 }
