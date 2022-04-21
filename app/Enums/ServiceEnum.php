@@ -15,9 +15,9 @@ enum ServiceEnum: int
     public function services()
     {
         return [
-            self::JMART->value     => JmartParserService::class,
-            self::TECHNODOM->value => TechnodomParserService::class,
-            self::MECHTA->value    => MechtaParserService::class,
+            self::JMART->value      => JmartParserService::class,
+            self::TECHNODOM->value  => TechnodomParserService::class,
+            self::MECHTA->value     => MechtaParserService::class,
         ];
     }
 

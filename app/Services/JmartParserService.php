@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Entities\ParseProduct;
 use App\Enums\ServiceEnum;
-use App\Http\Resources\Api\ProductResource;
-use App\Models\Product;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
