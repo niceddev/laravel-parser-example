@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,9 +16,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('parse 1')->dailyAt('09:00');
-         $schedule->command('parse 2')->dailyAt('09:00');
-         $schedule->command('parse 3')->dailyAt('09:00');
+        $schedule->call(function () {
+            DB::table('products')->delete();
+        })->dailyAt('09:01');
+        $schedule->command('parse 1')->dailyAt('09:02')->withoutOverlapping();
+        $schedule->command('parse 2')->dailyAt('09:10')->withoutOverlapping();
+        $schedule->command('parse 3')->dailyAt('09:20')->withoutOverlapping();
     }
 
 

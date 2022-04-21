@@ -14,11 +14,10 @@ class ParseCommand extends Command
 
     public function handle()
     {
-        info($this->argument('service'));
-//        $service = $this->argument('service');
-//        $enum = ServiceEnum::from($service);
-//        $parseService = app($enum->services()[$service]);
-//
-//        $parseService->parseUrl($enum->categories()[$service]);
+        $service = $this->argument('service');
+        $enum = ServiceEnum::from($service);
+        $parseService = app($enum->services()[$service]);
+
+        $parseService->parseUrl($enum->categories()[$service]);
     }
 }
