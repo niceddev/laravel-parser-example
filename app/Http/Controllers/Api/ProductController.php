@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Enums\ServiceEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Product\IndexRequest;
+use App\Http\Requests\Api\Product\SearchHistoryRequest;
 use App\Http\Requests\Api\Product\SearchRequest;
 use App\Http\Resources\Api\ProductResource;
 use App\Http\Resources\Api\SearchHistoryResource;
 use App\Models\Product;
 use App\Models\SearchHistory;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -35,9 +36,15 @@ class ProductController extends Controller
         return ProductResource::collection($products);
     }
 
-    public function searchHistory()
+    public function searchHistory(SearchHistoryRequest $request)
     {
-        return SearchHistoryResource::collection(SearchHistory::all());
+        return SearchHistoryResource::collection(
+            SearchHistory::filter($request->all())
+                ->select('text', DB::raw('count(text) as total'))
+                ->orderByDesc('total')
+                ->groupBy('text')
+                ->paginate()
+        );
     }
 
     public function show(Product $product)

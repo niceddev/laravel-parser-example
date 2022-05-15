@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchRequest extends FormRequest
+class SearchHistoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class SearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'text'    => 'required|string|min:1|max:255',
-            'limit'   => 'required|integer|min:10|max:100',
+            'sort_by' => 'string|min:1|max:50'
         ];
     }
 }

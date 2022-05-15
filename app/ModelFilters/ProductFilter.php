@@ -9,7 +9,7 @@ class ProductFilter extends ModelFilter
 {
     protected $drop_id = false;
 
-//    public function cit(int $id)
+//    public function city(int $id)
 //    {
 //        return $this->where('city', $id);
 //    }

@@ -2,20 +2,19 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class SearchHistory extends Model
 {
-    use HasFactory;
+    use HasFactory, Filterable;
 
     protected $fillable = [
         'text',
     ];
 
     protected $casts = [
-        'created_at' => 'string'
+        'created_at'    => 'string',
     ];
 }
