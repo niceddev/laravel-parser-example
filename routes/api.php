@@ -24,6 +24,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/search', [ProductController::class, 'search']);
+Route::get('/products/search/history', [ProductController::class, 'searchHistory']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/brands', [BrandController::class, 'index']);
