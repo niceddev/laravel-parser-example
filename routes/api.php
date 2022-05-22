@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::group(['prefix' => 'products'], function(){{
     Route::post('/{product}/buy', [ProductController::class, 'buy']);
 }});
 
+Route::get('/services', [ServiceController::class, 'index']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/brands', [BrandController::class, 'index']);
 Route::get('/cities', [CityController::class, 'index']);

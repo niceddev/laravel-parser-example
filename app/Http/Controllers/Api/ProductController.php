@@ -61,7 +61,8 @@ class ProductController extends Controller
 
     public function popular(Product $product)
     {
-        $popular = Product::where('category_id', $product->category_id)
+        $popular = Product::select('id', 'name', 'price', 'bought', 'service')
+            ->where('category_id', $product->category_id)
             ->orderByDesc('bought')
             ->get();
 
