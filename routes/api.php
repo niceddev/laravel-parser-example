@@ -27,6 +27,7 @@ Route::group(['prefix' => 'products'], function(){{
     Route::get('/search', [ProductController::class, 'search']);
     Route::get('/search/history', [ProductController::class, 'searchHistory']);
     Route::get('/{product}', [ProductController::class, 'show']);
+    Route::get('/{product}/popular', [ProductController::class, 'popular']);
     Route::post('/{product}/buy', [ProductController::class, 'buy']);
 }});
 

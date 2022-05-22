@@ -59,6 +59,15 @@ class ProductController extends Controller
         return ProductResource::make($product);
     }
 
+    public function popular(Product $product)
+    {
+        $popular = Product::where('category_id', $product->category_id)
+            ->orderByDesc('bought')
+            ->get();
+
+        return response()->json($popular);
+    }
+
     public function buy(Product $product)
     {
         Product::whereId($product->id)->increment('bought');

@@ -13,17 +13,11 @@ class BrandController
         $brands = DB::table('products')
             ->where('category_id', ($request->input('category_id')))
             ->where('brand', '!=', '')
-            ->groupBy('category_id', 'brand')
             ->select('brand')
+            ->groupBy('brand')
+            ->selectRaw('brand, SUM(bought) as bought')
+            ->orderByDesc('bought')
             ->get();
-//
-//        $brandAnalys = [];
-//        foreach ($brands as $brand){
-//            $brandAnalys[] = [
-//                'name' => $brand,
-//                'boughtSum' => 'sadasd'
-//            ];
-//        }
 
         return response()->json($brands);
     }
