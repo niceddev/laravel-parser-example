@@ -15,10 +15,17 @@ class BrandController
             ->where('brand', '!=', '')
             ->groupBy('category_id', 'brand')
             ->select('brand')
-            ->pluck('brand');
+            ->get();
+//
+//        $brandAnalys = [];
+//        foreach ($brands as $brand){
+//            $brandAnalys[] = [
+//                'name' => $brand,
+//                'boughtSum' => 'sadasd'
+//            ];
+//        }
 
-        return response()->json([
-            'data' => $brands
-        ]);
+        return response()->json($brands);
     }
+
 }

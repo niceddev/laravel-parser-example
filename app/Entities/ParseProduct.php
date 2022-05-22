@@ -12,6 +12,7 @@ class ParseProduct
     private int $category_id;
     private string $original_id;
     private int $service;
+    private int $bought;
 
     /**
      * @param string $name
@@ -21,9 +22,10 @@ class ParseProduct
      * @param int $category_id
      * @param string $original_id
      * @param int $service
+     * @param int $bought
      * @param string|null $description
      */
-    public function __construct(string $name, int $price, string $image_url, string $brand, int $category_id, string $original_id, int $service, string $description = null)
+    public function __construct(string $name, int $price, string $image_url, string $brand, int $category_id, string $original_id, int $service, int $bought, string $description = null)
     {
         $this->name = $name;
         $this->price = $price;
@@ -32,6 +34,7 @@ class ParseProduct
         $this->category_id = $category_id;
         $this->original_id = $original_id;
         $this->service = $service;
+        $this->bought = $bought;
         $this->description = $description;
     }
 
@@ -144,6 +147,24 @@ class ParseProduct
     }
 
     /**
+     * @return int
+     */
+    public function getBought(): int
+    {
+        return $this->bought;
+    }
+
+    /**
+     * @param int $bought
+     * @return ParseProduct
+     */
+    public function setBought(int $bought): self
+    {
+        $this->bought = $bought;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getBrand(): string
@@ -189,6 +210,7 @@ class ParseProduct
             'category_id' => $this->category_id,
             'original_id' => $this->original_id,
             'service'     => $this->service,
+            'bought'      => $this->bought,
             'description' => $this->description
         ];
     }

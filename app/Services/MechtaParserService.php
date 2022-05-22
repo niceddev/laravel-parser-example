@@ -43,7 +43,8 @@ class MechtaParserService extends ParserService
                         Str::ucfirst(Str::lower($data?->metrics?->brand)),
                         $this?->getCategory($categoryEnum),
                         $data?->code,
-                        ServiceEnum::MECHTA->value
+                        ServiceEnum::MECHTA->value,
+                        rand(20,60)
                     );
 
                     $this->addProduct($parseProduct);

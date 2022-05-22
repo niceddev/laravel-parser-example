@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignId('category_id');
             $table->string('original_id');
             $table->tinyInteger('service')->comment('Магазин-источник');
+            $table->integer('bought')->comment('Кол-во покупок');
         });
     }
 

@@ -22,10 +22,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-Route::get('/products', [ProductController::class, 'index']);
-Route::get('/products/search', [ProductController::class, 'search']);
-Route::get('/products/search/history', [ProductController::class, 'searchHistory']);
-Route::get('/products/{product}', [ProductController::class, 'show']);
+Route::group(['prefix' => 'products'], function(){{
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/search', [ProductController::class, 'search']);
+    Route::get('/search/history', [ProductController::class, 'searchHistory']);
+    Route::get('/{product}', [ProductController::class, 'show']);
+    Route::post('/{product}/buy', [ProductController::class, 'buy']);
+}});
+
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/brands', [BrandController::class, 'index']);
 Route::get('/cities', [CityController::class, 'index']);

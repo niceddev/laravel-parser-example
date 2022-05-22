@@ -58,4 +58,11 @@ class ProductController extends Controller
 
         return ProductResource::make($product);
     }
+
+    public function buy(Product $product)
+    {
+        Product::whereId($product->id)->increment('bought');
+
+        return 0;
+    }
 }

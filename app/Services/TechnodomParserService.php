@@ -29,7 +29,8 @@ class TechnodomParserService extends ParserService
                         Str::ucfirst(Str::lower($data?->brand_info?->title)),
                         $this->getCategory($categoryEnum),
                         $data->sku,
-                        ServiceEnum::TECHNODOM->value
+                        ServiceEnum::TECHNODOM->value,
+                        rand(20,60)
                     );
 
                     $this->addProduct($parseProduct);

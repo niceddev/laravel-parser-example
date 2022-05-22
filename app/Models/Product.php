@@ -18,6 +18,7 @@ class Product extends Model
         'category_id',
         'original_id',
         'service',
+        'bought',
         'description',
     ];
 

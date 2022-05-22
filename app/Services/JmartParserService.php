@@ -28,6 +28,7 @@ class JmartParserService extends ParserService
                         $this?->getCategory($categoryEnum),
                         $data?->product_id,
                         ServiceEnum::JMART->value,
+                        rand(20,60)
                     );
 
                     $this->addProduct($parseProduct);
