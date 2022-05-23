@@ -24,6 +24,14 @@ return new class extends Migration
             $table->string('original_id');
             $table->tinyInteger('service')->comment('Магазин-источник');
             $table->integer('bought')->comment('Кол-во покупок');
+            $table->float('rating')->comment('Актуальность');
+            $table->integer('boughtJmart');
+            $table->integer('boughtMechta');
+            $table->integer('boughtTechnodom');
+            $table->integer('astana');
+            $table->integer('almaty');
+            $table->integer('shymkent');
+            $table->integer('karaganda');
         });
     }
 

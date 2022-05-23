@@ -22,7 +22,15 @@ class ProductResource extends JsonResource
             'brand'       => $this->brand,
             'category_id' => $this->category_id,
             'description' => $this->description,
-            'bought'      => $this->bought
+            'bought'      => $this->bought,
+            'boughtJmart' => $this->boughtJmart,
+            'boughtMechta'=> $this->boughtMechta,
+            'boughtTechnodom' => $this->boughtTechnodom,
+            'rating'      => $this->rating,
+            'astana'      => $this->astana,
+            'almaty'      => $this->almaty,
+            'shymkent'      => $this->shymkent,
+            'karaganda'      => $this->karaganda,
         ];
     }
 }

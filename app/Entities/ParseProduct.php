@@ -13,6 +13,14 @@ class ParseProduct
     private string $original_id;
     private int $service;
     private int $bought;
+    private int $boughtJmart;
+    private int $boughtMechta;
+    private int $boughtTechnodom;
+    private float $rating;
+    private int $astana;
+    private int $almaty;
+    private int $shymkent;
+    private int $karaganda;
 
     /**
      * @param string $name
@@ -23,9 +31,17 @@ class ParseProduct
      * @param string $original_id
      * @param int $service
      * @param int $bought
+     * @param int $boughtJmart
+     * @param int $boughtMechta
+     * @param int $boughtTechnodom
+     * @param float $rating
+     * @param int $astana
+     * @param int $almaty
+     * @param int $shymkent
+     * @param int $karaganda
      * @param string|null $description
      */
-    public function __construct(string $name, int $price, string $image_url, string $brand, int $category_id, string $original_id, int $service, int $bought, string $description = null)
+    public function __construct(string $name, int $price, string $image_url, string $brand, int $category_id, string $original_id, int $service, int $bought, int $boughtJmart, int $boughtMechta, int $boughtTechnodom, float $rating, int $astana, int $almaty, int $shymkent, int $karaganda, string $description = null)
     {
         $this->name = $name;
         $this->price = $price;
@@ -35,6 +51,14 @@ class ParseProduct
         $this->original_id = $original_id;
         $this->service = $service;
         $this->bought = $bought;
+        $this->boughtJmart = $boughtJmart;
+        $this->boughtMechta = $boughtMechta;
+        $this->boughtTechnodom = $boughtTechnodom;
+        $this->rating = $rating;
+        $this->astana = $astana;
+        $this->almaty = $almaty;
+        $this->shymkent = $shymkent;
+        $this->karaganda = $karaganda;
         $this->description = $description;
     }
 
@@ -200,6 +224,150 @@ class ParseProduct
         return $this;
     }
 
+    /**
+     * @return int
+     */
+    public function getBoughtJmart(): int
+    {
+        return $this->boughtJmart;
+    }
+
+    /**
+     * @param int $boughtJmart
+     * @return ParseProduct
+     */
+    public function setBoughtJmart(int $boughtJmart): self
+    {
+        $this->boughtJmart = $boughtJmart;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBoughtMechta(): int
+    {
+        return $this->boughtMechta;
+    }
+
+    /**
+     * @param int $boughtMechta
+     * @return ParseProduct
+     */
+    public function setBoughtMechta(int $boughtMechta): self
+    {
+        $this->boughtMechta = $boughtMechta;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBoughtTechnodom(): int
+    {
+        return $this->boughtTechnodom;
+    }
+
+    /**
+     * @param int $boughtTechnodom
+     * @return ParseProduct
+     */
+    public function setBoughtTechnodom(int $boughtTechnodom): self
+    {
+        $this->boughtTechnodom = $boughtTechnodom;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getRating(): float
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param float $rating
+     * @return ParseProduct
+     */
+    public function setRating(float $rating): self
+    {
+        $this->rating = $rating;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAstana(): int
+    {
+        return $this->astana;
+    }
+
+    /**
+     * @param int $astana
+     * @return ParseProduct
+     */
+    public function setAstana(int $astana): self
+    {
+        $this->astana = $astana;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAlmaty(): int
+    {
+        return $this->almaty;
+    }
+
+    /**
+     * @param int $almaty
+     * @return ParseProduct
+     */
+    public function setAlmaty(int $almaty): self
+    {
+        $this->almaty = $almaty;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getShymkent(): int
+    {
+        return $this->shymkent;
+    }
+
+    /**
+     * @param int $shymkent
+     * @return ParseProduct
+     */
+    public function setShymkent(int $shymkent): self
+    {
+        $this->shymkent = $shymkent;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKaraganda(): int
+    {
+        return $this->karaganda;
+    }
+
+    /**
+     * @param int $karaganda
+     * @return ParseProduct
+     */
+    public function setKaraganda(int $karaganda): self
+    {
+        $this->karaganda = $karaganda;
+        return $this;
+    }
+
     public function toArray()
     {
         return [
@@ -211,6 +379,14 @@ class ParseProduct
             'original_id' => $this->original_id,
             'service'     => $this->service,
             'bought'      => $this->bought,
+            'boughtJmart' => $this->boughtJmart,
+            'boughtMechta'=> $this->boughtMechta,
+            'boughtTechnodom'=> $this->boughtTechnodom,
+            'rating'      => $this->rating,
+            'astana'      => $this->astana,
+            'almaty'      => $this->almaty,
+            'shymkent'    => $this->shymkent,
+            'karaganda'   => $this->karaganda,
             'description' => $this->description
         ];
     }

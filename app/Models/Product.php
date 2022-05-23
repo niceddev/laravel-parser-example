@@ -21,7 +21,14 @@ class Product extends Model
         'original_id',
         'service',
         'bought',
-        'description',
+        'boughtJmart',
+        'boughtMechta',
+        'boughtTechnodom',
+        'rating',
+        'astana',
+        'almaty',
+        'shymkent',
+        'karaganda',
     ];
 
     public $timestamps = false;

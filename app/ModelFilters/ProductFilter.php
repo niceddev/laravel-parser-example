@@ -33,4 +33,9 @@ class ProductFilter extends ModelFilter
     {
         return $this->where('brand', Str::ucfirst(Str::lower($brand)));
     }
+//
+//    public function orderBy($column, $direction = 'asc')
+//    {
+//        return $this->orderBy($column, $direction);
+//    }
 }
