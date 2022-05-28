@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BasketController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\FavouriteController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ServiceController;
@@ -30,6 +33,7 @@ Route::group(['prefix' => 'products'], function(){{
     Route::get('/{product}', [ProductController::class, 'show']);
     Route::get('/{product}/popular', [ProductController::class, 'popular']);
     Route::post('/{product}/buy', [ProductController::class, 'buy']);
+    Route::post('/{product}/favourite', [ProductController::class, 'addToFavourite']);
 }});
 
 Route::get('/services', [ServiceController::class, 'index']);
@@ -41,3 +45,12 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user', [UserController::class, 'show'])->name('user');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+Route::get('/basket', [BasketController::class, 'index']);
+Route::post('/basket', [BasketController::class, 'destroy']);
+
+Route::get('/favourites', [FavouriteController::class, 'index']);
+Route::post('/favourites', [FavouriteController::class, 'destroy']);
+
+Route::get('/comments', [CommentController::class, 'index']);
+Route::post('/comments', [CommentController::class, 'store']);

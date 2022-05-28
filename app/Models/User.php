@@ -22,4 +22,15 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
+    public function favouriteProducts()
+    {
+        return $this->belongsToMany(User::class, 'favourite_product_user', 'product_id', 'user_id');
+    }
+
 }

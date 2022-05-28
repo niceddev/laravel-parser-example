@@ -33,6 +33,16 @@ class Product extends Model
 
     public $timestamps = false;
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function favouriteUsers()
+    {
+        return $this->belongsToMany(Product::class, 'favourite_product_user', 'product_id', 'user_id');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

@@ -71,8 +71,41 @@ class ProductController extends Controller
 
     public function buy(Product $product)
     {
-        Product::whereId($product->id)->increment('bought');
+        $product = Product::find($product->id);
 
-        return 0;
+        $product->increment('bought');
+
+        if (auth()->user()){
+            $product->users()->attach(auth()->user());
+        }else{
+            DB::table('product_user')
+                ->updateOrInsert([
+                    'product_id' => $product->id,
+                    'user_id'    => null
+                ],
+                [
+                    'product_id' => $product->id,
+                    'user_id'    => null
+                ]);
+        }
+    }
+
+    public function addToFavourite(Product $product)
+    {
+        $product = Product::find($product->id);
+
+        if (auth()->user()){
+            $product->favouriteUsers()->attach(auth()->user());
+        }else{
+            DB::table('favourite_product_user')
+                ->updateOrInsert([
+                    'product_id' => $product->id,
+                    'user_id'    => null
+                ],
+                [
+                    'product_id' => $product->id,
+                    'user_id'    => null
+                ]);
+        }
     }
 }
