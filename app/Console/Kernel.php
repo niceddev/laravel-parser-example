@@ -18,10 +18,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             DB::table('products')->delete();
-        })->dailyAt('09:01');
-        $schedule->command('parse 1')->dailyAt('09:02')->withoutOverlapping();
-        $schedule->command('parse 2')->dailyAt('09:10')->withoutOverlapping();
-        $schedule->command('parse 3')->dailyAt('09:20')->withoutOverlapping();
+        })->dailyAt('22:15');
+        $schedule->command('parse 1')->dailyAt('22:20')->withoutOverlapping();
+        $schedule->command('parse 2')->dailyAt('22:55')->withoutOverlapping();
+        $schedule->command('parse 3')->dailyAt('23:30')->withoutOverlapping();
     }
 
 
