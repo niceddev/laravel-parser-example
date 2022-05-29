@@ -17,7 +17,7 @@ class BrandController
             ->groupBy('brand')
             ->selectRaw('brand, SUM(bought) as bought')
             ->orderByDesc('bought')
-            ->get();
+            ->paginate($request->limit);
 
         return response()->json($brands);
     }
