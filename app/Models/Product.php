@@ -48,11 +48,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    protected function service(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value === ServiceEnum::JMART->value ? 'Jmart' : ($value === ServiceEnum::MECHTA->value ? 'Mechta' : 'Technodom'),
-        );
-    }
+//    protected function service(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn ($value) => $value === ServiceEnum::JMART->value ? 'Jmart' : ($value === ServiceEnum::MECHTA->value ? 'Mechta' : 'Technodom'),
+//        );
+//    }
 
 }
