@@ -11,9 +11,6 @@ class CityController extends Controller
 {
     public function index()
     {
-
-        dd(DB::table('products')->pluck('name', 'price'));
-
-//        return City::all();
+        return City::all();
     }
 }
