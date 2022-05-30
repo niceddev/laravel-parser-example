@@ -11,6 +11,7 @@ use App\Http\Resources\Api\ProductResource;
 use App\Http\Resources\Api\SearchHistoryResource;
 use App\Models\Product;
 use App\Models\SearchHistory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -70,11 +71,13 @@ class ProductController extends Controller
         return response()->json($popular);
     }
 
-    public function buy(Product $product)
+    public function buy(Product $product, Request $request)
     {
         $product = Product::find($product->id);
+        $city = $request->input('state');
 
         $product->increment('bought');
+        $product->increment($city);
 
         if (auth()->user()){
             $product->users()->attach(auth()->user());

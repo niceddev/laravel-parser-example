@@ -18,6 +18,9 @@ class CategoryResource extends JsonResource
             'id'             => $this->id,
             'name'           => $this->name,
             'sub_categories' => self::collection($this->whenLoaded('subCategories')),
+            'total_sold'     => \DB::table('products')
+                                        ->where('category_id', $this->id)
+                                        ->sum('bought')
         ];
     }
 }

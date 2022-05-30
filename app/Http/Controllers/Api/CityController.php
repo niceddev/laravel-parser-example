@@ -11,14 +11,7 @@ class CityController extends Controller
 {
     public function index()
     {
-
-//        dd(
-            foreach (DB::table('products')
-                ->orderBy('id')
-                ->lazy() as $val){
-                dump($val);
-            }
-//        );
+        DB::table('cities');
 
         return City::all();
     }
